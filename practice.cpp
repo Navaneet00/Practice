@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <unordered_map>
 using namespace std;
 
 // Pass by Reference using pointers
@@ -349,6 +350,28 @@ class BankAccount {
 };
 
 int BankAccount::totalAccounts = 0;
+
+bool isValid(string s) {
+    unordered_map<char, char> mp = {
+        {')', '('},
+        {'}', '{'},
+        {']', '['}
+    };
+
+    stack<char> st;
+
+    for (char c : s) {
+        if (mp.count(c) == 0) {
+            st.push(c);
+        } else {
+            if (st.empty() || st.top() != mp[c])
+                return false;
+            st.pop();
+        }
+    }
+
+    return st.empty();
+}
 
 
 int main() {
