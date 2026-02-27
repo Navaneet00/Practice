@@ -1,8 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <memory>
+#include <stack>
 #include <unordered_map>
-using namespace std;
 
 // Pass by Reference using pointers
 void changeA (int* ptr) {
@@ -19,80 +18,80 @@ void pointers(){
     int a = 10;
 
     // Print the memory address of a (which is Hexadecimal)
-    cout << "Address of a: " << &a << endl;
-    cout << "Value of a: " << a << endl;
+    std::cout << "Address of a: " << &a << std::endl;
+    std::cout << "Value of a: " << a << std::endl;
 
     changeA(&a);
-    cout << "New value of a: " << a << endl;
+    std::cout << "New value of a: " << a << std::endl;
 
     changeAUsingAlias(a);
-    cout << "Updated value of a: " << a << endl;
+    std::cout << "Updated value of a: " << a << std::endl;
 
     // Create pointer
     int* ptr = &a;
-    cout << "Pointer value: " << ptr << endl;
-    cout << "Pointer address: " << &ptr << endl;
+    std::cout << "Pointer value: " << ptr << std::endl;
+    std::cout << "Pointer address: " << &ptr << std::endl;
 
 
     // Create parent pointer
     int** parPtr = &ptr;
-    cout << "Parent Pointer value: " << parPtr << endl;
+    std::cout << "Parent Pointer value: " << parPtr << std::endl;
 
 
     // Deference value a, ptr & parPtr (Deference - Gets the value stored at the address)
-    cout << "Deference value of a: " << *(&a) << endl;
-    cout << "Deference value of ptr: " << *(&ptr) << endl;
-    cout << "Deference value of parPtr: " << *(&parPtr) << endl;
+    std::cout << "Deference value of a: " << *(&a) << std::endl;
+    std::cout << "Deference value of ptr: " << *(&ptr) << std::endl;
+    std::cout << "Deference value of parPtr: " << *(&parPtr) << std::endl;
 
 
     // NULL Pointer
     int* nullPtr = NULL;
-    cout << "Pointer value: " << nullPtr << endl;
-    cout << "NULL Pointer address: " << &nullPtr << endl;
-    // cout << "Deference NULL Pointer: " << *nullPtr << endl;
+    std::cout << "Pointer value: " << nullPtr << std::endl;
+    std::cout << "NULL Pointer address: " << &nullPtr << std::endl;
+    // std::cout << "Deference NULL Pointer: " << *nullPtr << std::endl;
 
 
     // Array Pointer (This is const pointer that is, not modifiable)
     int arr[] = {1, 2, 3, 4, 5};
-    cout << "Array pointer address: " << arr << endl;
-    cout << "Array pointer Zeroth index: " << *arr << endl;
-    cout << "Array pointer First index: " << *(arr + 1) << endl;
-    cout << "Array pointer Third index: " << *(arr + 3) << endl;
+    std::cout << "Array pointer address: " << arr << std::endl;
+    std::cout << "Array pointer Zeroth index: " << *arr << std::endl;
+    std::cout << "Array pointer First index: " << *(arr + 1) << std::endl;
+    std::cout << "Array pointer Third index: " << *(arr + 3) << std::endl;
 
 
     // Pointer Arithmetic
     int c = 94;
     int* cPtr = &c;
 
-    cout << "Pointer address: " << cPtr << endl;
+    std::cout << "Pointer address: " << cPtr << std::endl;
 
     cPtr++; // No. of bytes of that variable type is added (+1 => +4 bytes)
-    cout << "Pointer new address: " << cPtr << endl;
+    std::cout << "Pointer new address: " << cPtr << std::endl;
 
     cPtr--; // No. of bytes of that variable type is subtracted (-1 => -4 bytes)
-    cout << "Pointer updated address: " << cPtr << endl;
+    std::cout << "Pointer updated address: " << cPtr << std::endl;
 
 
     // Subtract pointers
     int* ptr1;
     int* ptr2 = ptr1 + 4;
 
-    cout << "ptr1 - ptr2 = " << ptr1 - ptr2 << endl;
-    cout << "ptr2 - ptr1 = " << ptr2 - ptr1 << endl;
+    std::cout << "ptr1 - ptr2 = " << ptr1 - ptr2 << std::endl;
+    std::cout << "ptr2 - ptr1 = " << ptr2 - ptr1 << std::endl;
 
 
     // Compare pointers (<, <=, >, >=, ==, !=)
     int* ptr3;
     int* ptr4;
     
-    cout << "ptr3: " << ptr3 << endl;
-    cout << "ptr4: " << ptr4 << endl;
-    cout << "ptr3 < ptr4 = " << ((ptr3 < ptr4)? "True" : "False") << endl;
-    cout << "ptr3 <= ptr4 = " << ((ptr3 <= ptr4)? "True" : "False") << endl;
-    cout << "ptr3 > ptr4 = " << ((ptr3 > ptr4)? "True" : "False") << endl;
-    cout << "ptr3 >= ptr4 = " << ((ptr3 >= ptr4)? "True" : "False") << endl;
-    cout << "ptr3 == ptr4 = " << ((ptr3 == ptr4)? "True" : "False") << endl;
-    cout << "ptr3 != ptr4 = " << ((ptr3 != ptr4)? "True" : "False") << endl;
+    std::cout << "ptr3: " << ptr3 << std::endl;
+    std::cout << "ptr4: " << ptr4 << std::endl;
+    std::cout << "ptr3 < ptr4 = " << ((ptr3 < ptr4)? "True" : "False") << std::endl;
+    std::cout << "ptr3 <= ptr4 = " << ((ptr3 <= ptr4)? "True" : "False") << std::endl;
+    std::cout << "ptr3 > ptr4 = " << ((ptr3 > ptr4)? "True" : "False") << std::endl;
+    std::cout << "ptr3 >= ptr4 = " << ((ptr3 >= ptr4)? "True" : "False") << std::endl;
+    std::cout << "ptr3 == ptr4 = " << ((ptr3 == ptr4)? "True" : "False") << std::endl;
+    std::cout << "ptr3 != ptr4 = " << ((ptr3 != ptr4)? "True" : "False") << std::endl;
 }
 
 // Add function
@@ -105,7 +104,7 @@ void stack(){
     int a = 10, b = 15;
 
     int sum = add(a, b);
-    cout << "Sum: " << sum << endl;
+    std::cout << "Sum: " << sum << std::endl;
 }
 
 // Heap Memory Allocation (Dynamic Memory or Free Store)
@@ -129,21 +128,21 @@ void heap(){
 void program1(){
     int n;
 
-    cout<<"Enter number of elements: ";
-    cin>>n;
+    std::cout<<"Enter number of elements: ";
+    std::cin>>n;
 
     // Dynamically allocate memory
     int* arr = new int[n];
 
     // Fill the array
     for(int i = 0; i<n; i++){
-        cout<<"Enter the element "<<i+1<<" : ";
-        cin>>arr[i];
+        std::cout<<"Enter the element "<<i+1<<" : ";
+        std::cin>>arr[i];
     }
 
     // Print the array
     for(int i = 0; i<n; i++){
-        cout<<"Element "<<i+1<<" : "<<arr[i]<<endl;
+        std::cout<<"Element "<<i+1<<" : "<<arr[i]<<std::endl;
     }
 
     // Free the allocated memory
@@ -153,28 +152,28 @@ void program1(){
 // A program that demonstrates a dangling pointer (then fix it)
 void program2(){
     int* p = new int(20);
-    cout << "Value: " << *p << endl;
+    std::cout << "Value: " << *p << std::endl;
 
     delete(p);
     p = nullptr;  // Fix: Remove dangling reference
 
     if (p != nullptr) {
-        cout << *p << endl;
+        std::cout << *p << std::endl;
     } else {
-        cout << "Pointer is null, cannot access memory." << endl;
+        std::cout << "Pointer is null, cannot access memory." << std::endl;
     }
 
     // Or can use this method
-    unique_ptr<int> ptr = make_unique<int>(10);
+    std::unique_ptr<int> ptr = std::make_unique<int>(10);
 
-    cout << "Value: " << *ptr << endl;
+    std::cout << "Value: " << *ptr << std::endl;
 
     // Memory automatically freed when ptr goes out of scope
 }
 
 
 // LeetCode Problem: Remove Duplicates from Sorted Array
-int removeDuplicates(vector<int>& arr){
+int removeDuplicates(std::vector<int>& arr){
     if (arr.empty()) return 0;
 
     int k = 1;
@@ -187,9 +186,9 @@ int removeDuplicates(vector<int>& arr){
     }
 
     for (int i = 0; i < arr.size(); i++) {
-        cout << arr[i] << " ";
+        std::cout << arr[i] << " ";
     }
-    cout<<endl;
+    std::cout<<std::endl;
 
     return k;
 }
@@ -204,38 +203,38 @@ class practice1{
     int practiceVal1 = 20;
     const static int practiceVal2 = 35;
     int age;
-    string data;
+    std::string data;
 
     public:
 
     // Default Constructor
     practice1(){
-        cout << "Constructor called" << endl;
+        std::cout << "Constructor called" << std::endl;
     }
 
     // Parametrized Constructor
-    practice1(string data){
-        cout << "Parametrized Constructor called and data is: " << data << endl;
+    practice1(std::string data){
+        std::cout << "Parametrized Constructor called and data is: " << data << std::endl;
     }
 
     // Parametrized Constructor (Use Member Initializer List)
-    practice1(int age, string data): age(age), data(data){
-        cout << "Parametrized Constructor using member initializer list called and age is: " << this->age << " , data is: " << this-> data << endl;
+    practice1(int age, std::string data): age(age), data(data){
+        std::cout << "Parametrized Constructor using member initializer list called and age is: " << this->age << " , data is: " << this-> data << std::endl;
     }
 
     // Get Data Function
-    void getData(int age, string data){
+    void getData(int age, std::string data){
         this->age = age;
         this->data = data;
-        cout<< "Age: " << this->age << endl;
-        cout<< "Data: " << this->data << endl;
+        std::cout<< "Age: " << this->age << std::endl;
+        std::cout<< "Data: " << this->data << std::endl;
     }
 
     // Static member function
     static int fun(){
-        cout << "Static member function invoked" << endl;
-        // cout << "Data member: " << practiceVal1 << endl;  // a nonstatic member reference must be relative to a specific object
-        cout << "Data member: " << practiceVal2 << endl;
+        std::cout << "Static member function invoked" << std::endl;
+        // std::cout << "Data member: " << practiceVal1 << std::endl;  // a nonstatic member reference must be relative to a specific object
+        std::cout << "Data member: " << practiceVal2 << std::endl;
 
         return 0;
     }
@@ -246,17 +245,17 @@ class practice1{
 
     // Destructor
     ~practice1(){
-        cout << "Destructor called" << endl;
+        std::cout << "Destructor called" << std::endl;
     }
 };
 
 int practice1::newFun(){
-    cout << "Defined static function outside class using scope resolution operator" << endl;
+    std::cout << "Defined static function outside class using scope resolution operator" << std::endl;
     return 0;
 }
 
 int practice1::newFun1(){
-    cout << "Defined function outside class using scope resolution operator" << endl;
+    std::cout << "Defined function outside class using scope resolution operator" << std::endl;
     return 0;
 }
 
@@ -281,7 +280,7 @@ class accessSpecifiers {
     }
 
     void showData(){
-        cout << a << " " << b << " " << c << endl;
+        std::cout << a << " " << b << " " << c << std::endl;
     }
 };
 
@@ -290,7 +289,7 @@ class childAccessSpecifiers : public accessSpecifiers {
 
     public:
     childAccessSpecifiers(): accessSpecifiers(101, 627, 829){
-        cout << "Value of 'b' printed using child class function: " << b << endl;
+        std::cout << "Value of 'b' printed using child class function: " << b << std::endl;
     }
 };
 
@@ -317,24 +316,24 @@ class BankAccount {
     void deposit(double amount){
         if(amount > 0){
             balance += amount;
-            cout << "Amount accepted" << endl;
+            std::cout << "Amount accepted" << std::endl;
         }
         else{
-            cout << "Invalid amount" << endl;
+            std::cout << "Invalid amount" << std::endl;
         }
     }
 
     // Withdraw money
     void withDraw(double amount){
         if(amount <= 0){
-            cout << "Invalid amount" << endl;
+            std::cout << "Invalid amount" << std::endl;
         }
         else if(amount > balance){
-            cout << "Insufficient balance!" << endl;
+            std::cout << "Insufficient balance!" << std::endl;
         }
         else {
             balance -= amount;
-            cout << "Withdraw successful!: " << amount << endl;
+            std::cout << "Withdraw successful!: " << amount << std::endl;
         }
     }
 
@@ -351,14 +350,15 @@ class BankAccount {
 
 int BankAccount::totalAccounts = 0;
 
-bool isValid(string s) {
-    unordered_map<char, char> mp = {
+// Is Parentheses valid function
+bool isValid(std::string s) {
+    std::unordered_map<char, char> mp = {
         {')', '('},
         {'}', '{'},
         {']', '['}
     };
 
-    stack<char> st;
+    std::stack<char> st;
 
     for (char c : s) {
         if (mp.count(c) == 0) {
@@ -394,13 +394,13 @@ int main() {
     // LeetCode Problem 1
     // vector<int> arr = {1, 1, 2, 3, 4, 4, 5, 5, 5, 5, 6};
     // int k = removeDuplicates(arr);
-    // cout<<"k: "<<k;
+    // std::cout<<"k: "<<k;
 
     // Struct vs Class
     // practice p;
     // practice1 p1;
-    // cout << 10*p.practiceVal << endl;  // 100
-    // cout << 10*p1.practiceVal1 << endl;  // member "practice1::practiceVal1" (declared at line 203) is inaccessible
+    // std::cout << 10*p.practiceVal << std::endl;  // 100
+    // std::cout << 10*p1.practiceVal1 << std::endl;  // member "practice1::practiceVal1" (declared at line 203) is inaccessible
 
     // Constructor Vs Destructor & Use of 'this' pointer in getData function
     // practice1 p1, p2("Hello"), p3(195, "Henry");
@@ -416,13 +416,13 @@ int main() {
     // accessSpecifiers aS;
     // aS.setData();
     // aS.showData();
-    // // cout << "Data 'a': " << aS.a << endl;  // member "accessSpecifiers::a" (declared at line 265) is inaccessible
-    // // cout << "Data 'b': " << aS.b << endl;  // member "accessSpecifiers::b" (declared at line 268) is inaccessible
-    // cout << "Data 'c': " << aS.c << endl;
+    // // std::cout << "Data 'a': " << aS.a << std::endl;  // member "accessSpecifiers::a" (declared at line 265) is inaccessible
+    // // std::cout << "Data 'b': " << aS.b << std::endl;  // member "accessSpecifiers::b" (declared at line 268) is inaccessible
+    // std::cout << "Data 'c': " << aS.c << std::endl;
     // // aS.a = 100;  // member "accessSpecifiers::a" (declared at line 265) is inaccessible
     // // aS.b = 256;  // member "accessSpecifiers::b" (declared at line 268) is inaccessible
     // aS.c = 624;
-    // cout << "New 'c': " << aS.c << endl;
+    // std::cout << "New 'c': " << aS.c << std::endl;
     // childAccessSpecifiers cAS;
 
     // Program 3: BankAccount
@@ -431,8 +431,8 @@ int main() {
     // account.deposit(110);
     // account.withDraw(15000);
     // account.withDraw(1000);
-    // cout << "Current balance: " << account.getBalance() << endl;
-    // cout << "Total Accounts: " << BankAccount::getAccounts() << endl;
+    // std::cout << "Current balance: " << account.getBalance() << std::endl;
+    // std::cout << "Total Accounts: " << BankAccount::getAccounts() << std::endl;
 
     return 0;
 }
