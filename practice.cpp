@@ -1,7 +1,12 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <memory>
 #include <unordered_map>
+#include <map>
+#include <stack>
+#include <sstream>
+using namespace std;
 
 // Pass by Reference using pointers
 void changeA (int* ptr) {
@@ -18,80 +23,80 @@ void pointers(){
     int a = 10;
 
     // Print the memory address of a (which is Hexadecimal)
-    std::cout << "Address of a: " << &a << std::endl;
-    std::cout << "Value of a: " << a << std::endl;
+    cout << "Address of a: " << &a << endl;
+    cout << "Value of a: " << a << endl;
 
     changeA(&a);
-    std::cout << "New value of a: " << a << std::endl;
+    cout << "New value of a: " << a << endl;
 
     changeAUsingAlias(a);
-    std::cout << "Updated value of a: " << a << std::endl;
+    cout << "Updated value of a: " << a << endl;
 
     // Create pointer
     int* ptr = &a;
-    std::cout << "Pointer value: " << ptr << std::endl;
-    std::cout << "Pointer address: " << &ptr << std::endl;
+    cout << "Pointer value: " << ptr << endl;
+    cout << "Pointer address: " << &ptr << endl;
 
 
     // Create parent pointer
     int** parPtr = &ptr;
-    std::cout << "Parent Pointer value: " << parPtr << std::endl;
+    cout << "Parent Pointer value: " << parPtr << endl;
 
 
     // Deference value a, ptr & parPtr (Deference - Gets the value stored at the address)
-    std::cout << "Deference value of a: " << *(&a) << std::endl;
-    std::cout << "Deference value of ptr: " << *(&ptr) << std::endl;
-    std::cout << "Deference value of parPtr: " << *(&parPtr) << std::endl;
+    cout << "Deference value of a: " << *(&a) << endl;
+    cout << "Deference value of ptr: " << *(&ptr) << endl;
+    cout << "Deference value of parPtr: " << *(&parPtr) << endl;
 
 
     // NULL Pointer
     int* nullPtr = NULL;
-    std::cout << "Pointer value: " << nullPtr << std::endl;
-    std::cout << "NULL Pointer address: " << &nullPtr << std::endl;
-    // std::cout << "Deference NULL Pointer: " << *nullPtr << std::endl;
+    cout << "Pointer value: " << nullPtr << endl;
+    cout << "NULL Pointer address: " << &nullPtr << endl;
+    // cout << "Deference NULL Pointer: " << *nullPtr << endl;
 
 
     // Array Pointer (This is const pointer that is, not modifiable)
     int arr[] = {1, 2, 3, 4, 5};
-    std::cout << "Array pointer address: " << arr << std::endl;
-    std::cout << "Array pointer Zeroth index: " << *arr << std::endl;
-    std::cout << "Array pointer First index: " << *(arr + 1) << std::endl;
-    std::cout << "Array pointer Third index: " << *(arr + 3) << std::endl;
+    cout << "Array pointer address: " << arr << endl;
+    cout << "Array pointer Zeroth index: " << *arr << endl;
+    cout << "Array pointer First index: " << *(arr + 1) << endl;
+    cout << "Array pointer Third index: " << *(arr + 3) << endl;
 
 
     // Pointer Arithmetic
     int c = 94;
     int* cPtr = &c;
 
-    std::cout << "Pointer address: " << cPtr << std::endl;
+    cout << "Pointer address: " << cPtr << endl;
 
     cPtr++; // No. of bytes of that variable type is added (+1 => +4 bytes)
-    std::cout << "Pointer new address: " << cPtr << std::endl;
+    cout << "Pointer new address: " << cPtr << endl;
 
     cPtr--; // No. of bytes of that variable type is subtracted (-1 => -4 bytes)
-    std::cout << "Pointer updated address: " << cPtr << std::endl;
+    cout << "Pointer updated address: " << cPtr << endl;
 
 
     // Subtract pointers
     int* ptr1;
     int* ptr2 = ptr1 + 4;
 
-    std::cout << "ptr1 - ptr2 = " << ptr1 - ptr2 << std::endl;
-    std::cout << "ptr2 - ptr1 = " << ptr2 - ptr1 << std::endl;
+    cout << "ptr1 - ptr2 = " << ptr1 - ptr2 << endl;
+    cout << "ptr2 - ptr1 = " << ptr2 - ptr1 << endl;
 
 
     // Compare pointers (<, <=, >, >=, ==, !=)
     int* ptr3;
     int* ptr4;
     
-    std::cout << "ptr3: " << ptr3 << std::endl;
-    std::cout << "ptr4: " << ptr4 << std::endl;
-    std::cout << "ptr3 < ptr4 = " << ((ptr3 < ptr4)? "True" : "False") << std::endl;
-    std::cout << "ptr3 <= ptr4 = " << ((ptr3 <= ptr4)? "True" : "False") << std::endl;
-    std::cout << "ptr3 > ptr4 = " << ((ptr3 > ptr4)? "True" : "False") << std::endl;
-    std::cout << "ptr3 >= ptr4 = " << ((ptr3 >= ptr4)? "True" : "False") << std::endl;
-    std::cout << "ptr3 == ptr4 = " << ((ptr3 == ptr4)? "True" : "False") << std::endl;
-    std::cout << "ptr3 != ptr4 = " << ((ptr3 != ptr4)? "True" : "False") << std::endl;
+    cout << "ptr3: " << ptr3 << endl;
+    cout << "ptr4: " << ptr4 << endl;
+    cout << "ptr3 < ptr4 = " << ((ptr3 < ptr4)? "True" : "False") << endl;
+    cout << "ptr3 <= ptr4 = " << ((ptr3 <= ptr4)? "True" : "False") << endl;
+    cout << "ptr3 > ptr4 = " << ((ptr3 > ptr4)? "True" : "False") << endl;
+    cout << "ptr3 >= ptr4 = " << ((ptr3 >= ptr4)? "True" : "False") << endl;
+    cout << "ptr3 == ptr4 = " << ((ptr3 == ptr4)? "True" : "False") << endl;
+    cout << "ptr3 != ptr4 = " << ((ptr3 != ptr4)? "True" : "False") << endl;
 }
 
 // Add function
@@ -104,7 +109,7 @@ void stack(){
     int a = 10, b = 15;
 
     int sum = add(a, b);
-    std::cout << "Sum: " << sum << std::endl;
+    cout << "Sum: " << sum << endl;
 }
 
 // Heap Memory Allocation (Dynamic Memory or Free Store)
@@ -128,21 +133,21 @@ void heap(){
 void program1(){
     int n;
 
-    std::cout<<"Enter number of elements: ";
-    std::cin>>n;
+    cout<<"Enter number of elements: ";
+    cin>>n;
 
     // Dynamically allocate memory
     int* arr = new int[n];
 
     // Fill the array
     for(int i = 0; i<n; i++){
-        std::cout<<"Enter the element "<<i+1<<" : ";
-        std::cin>>arr[i];
+        cout<<"Enter the element "<<i+1<<" : ";
+        cin>>arr[i];
     }
 
     // Print the array
     for(int i = 0; i<n; i++){
-        std::cout<<"Element "<<i+1<<" : "<<arr[i]<<std::endl;
+        cout<<"Element "<<i+1<<" : "<<arr[i]<<endl;
     }
 
     // Free the allocated memory
@@ -152,28 +157,28 @@ void program1(){
 // A program that demonstrates a dangling pointer (then fix it)
 void program2(){
     int* p = new int(20);
-    std::cout << "Value: " << *p << std::endl;
+    cout << "Value: " << *p << endl;
 
     delete(p);
     p = nullptr;  // Fix: Remove dangling reference
 
     if (p != nullptr) {
-        std::cout << *p << std::endl;
+        cout << *p << endl;
     } else {
-        std::cout << "Pointer is null, cannot access memory." << std::endl;
+        cout << "Pointer is null, cannot access memory." << endl;
     }
 
     // Or can use this method
-    std::unique_ptr<int> ptr = std::make_unique<int>(10);
+    unique_ptr<int> ptr = make_unique<int>(10);
 
-    std::cout << "Value: " << *ptr << std::endl;
+    cout << "Value: " << *ptr << endl;
 
     // Memory automatically freed when ptr goes out of scope
 }
 
 
 // LeetCode Problem: Remove Duplicates from Sorted Array
-int removeDuplicates(std::vector<int>& arr){
+int removeDuplicates(vector<int>& arr){
     if (arr.empty()) return 0;
 
     int k = 1;
@@ -186,9 +191,9 @@ int removeDuplicates(std::vector<int>& arr){
     }
 
     for (int i = 0; i < arr.size(); i++) {
-        std::cout << arr[i] << " ";
+        cout << arr[i] << " ";
     }
-    std::cout<<std::endl;
+    cout<<endl;
 
     return k;
 }
@@ -203,38 +208,38 @@ class practice1{
     int practiceVal1 = 20;
     const static int practiceVal2 = 35;
     int age;
-    std::string data;
+    string data;
 
     public:
 
     // Default Constructor
     practice1(){
-        std::cout << "Constructor called" << std::endl;
+        cout << "Constructor called" << endl;
     }
 
     // Parametrized Constructor
-    practice1(std::string data){
-        std::cout << "Parametrized Constructor called and data is: " << data << std::endl;
+    practice1(string data){
+        cout << "Parametrized Constructor called and data is: " << data << endl;
     }
 
     // Parametrized Constructor (Use Member Initializer List)
-    practice1(int age, std::string data): age(age), data(data){
-        std::cout << "Parametrized Constructor using member initializer list called and age is: " << this->age << " , data is: " << this-> data << std::endl;
+    practice1(int age, string data): age(age), data(data){
+        cout << "Parametrized Constructor using member initializer list called and age is: " << this->age << " , data is: " << this-> data << endl;
     }
 
     // Get Data Function
-    void getData(int age, std::string data){
+    void getData(int age, string data){
         this->age = age;
         this->data = data;
-        std::cout<< "Age: " << this->age << std::endl;
-        std::cout<< "Data: " << this->data << std::endl;
+        cout<< "Age: " << this->age << endl;
+        cout<< "Data: " << this->data << endl;
     }
 
     // Static member function
     static int fun(){
-        std::cout << "Static member function invoked" << std::endl;
-        // std::cout << "Data member: " << practiceVal1 << std::endl;  // a nonstatic member reference must be relative to a specific object
-        std::cout << "Data member: " << practiceVal2 << std::endl;
+        cout << "Static member function invoked" << endl;
+        // cout << "Data member: " << practiceVal1 << endl;  // a nonstatic member reference must be relative to a specific object
+        cout << "Data member: " << practiceVal2 << endl;
 
         return 0;
     }
@@ -245,17 +250,17 @@ class practice1{
 
     // Destructor
     ~practice1(){
-        std::cout << "Destructor called" << std::endl;
+        cout << "Destructor called" << endl;
     }
 };
 
 int practice1::newFun(){
-    std::cout << "Defined static function outside class using scope resolution operator" << std::endl;
+    cout << "Defined static function outside class using scope resolution operator" << endl;
     return 0;
 }
 
 int practice1::newFun1(){
-    std::cout << "Defined function outside class using scope resolution operator" << std::endl;
+    cout << "Defined function outside class using scope resolution operator" << endl;
     return 0;
 }
 
@@ -280,7 +285,7 @@ class accessSpecifiers {
     }
 
     void showData(){
-        std::cout << a << " " << b << " " << c << std::endl;
+        cout << a << " " << b << " " << c << endl;
     }
 };
 
@@ -289,7 +294,7 @@ class childAccessSpecifiers : public accessSpecifiers {
 
     public:
     childAccessSpecifiers(): accessSpecifiers(101, 627, 829){
-        std::cout << "Value of 'b' printed using child class function: " << b << std::endl;
+        cout << "Value of 'b' printed using child class function: " << b << endl;
     }
 };
 
@@ -316,24 +321,24 @@ class BankAccount {
     void deposit(double amount){
         if(amount > 0){
             balance += amount;
-            std::cout << "Amount accepted" << std::endl;
+            cout << "Amount accepted" << endl;
         }
         else{
-            std::cout << "Invalid amount" << std::endl;
+            cout << "Invalid amount" << endl;
         }
     }
 
     // Withdraw money
     void withDraw(double amount){
         if(amount <= 0){
-            std::cout << "Invalid amount" << std::endl;
+            cout << "Invalid amount" << endl;
         }
         else if(amount > balance){
-            std::cout << "Insufficient balance!" << std::endl;
+            cout << "Insufficient balance!" << endl;
         }
         else {
             balance -= amount;
-            std::cout << "Withdraw successful!: " << amount << std::endl;
+            cout << "Withdraw successful!: " << amount << endl;
         }
     }
 
@@ -351,8 +356,8 @@ class BankAccount {
 int BankAccount::totalAccounts = 0;
 
 // Is Parentheses valid function
-bool isValid(std::string s) {
-    std::unordered_map<char, char> mp = {
+bool isValid(string s) {
+    unordered_map<char, char> mp = {
         {')', '('},
         {'}', '{'},
         {']', '['}
@@ -367,6 +372,126 @@ bool isValid(std::string s) {
             if (st.empty() || st.top() != mp[c])
                 return false;
             st.pop();
+        }
+    }
+
+    return st.empty();
+}
+
+// Pure Virtual Function Example
+class Shape {
+    public:
+    virtual void draw() = 0;
+
+    virtual ~Shape(){
+        cout << "Shape Destructor" << endl;
+    }
+};
+
+class Circle : public Shape {
+    public:
+    void draw() override {
+        cout << "Draw a circle" << endl;
+    }
+
+    ~Circle(){
+        cout << "Circle Destructor" << endl;
+    }
+};
+
+class Triangle : public Shape {
+    public:
+    void draw(){
+        cout << "Draw a Triangle" << endl;
+    }
+
+    ~Triangle(){
+        cout << "Triangle Destructor" << endl;
+    }
+};
+
+// Ordered Vs Unordered Map
+void orderedVsUnorderedMap(){
+
+    // Ordered map
+    map<string, int> ordered;
+
+    ordered["Hi"] = 5;
+    ordered["Hello"] = 9;
+    ordered["Bye"] = 11;
+
+    cout << "Ordered map" << endl;
+    for (auto i = ordered.begin(); i != ordered.end(); i++){
+        cout << i->first << " : " << i->second << endl;
+    }
+
+    // Unordered map
+    unordered_map<string, int> unOrdered;
+
+    unOrdered["Hello"] = 10;
+    unOrdered["Bye"] = 13;
+    unOrdered["Hey"] = 19;
+
+    cout << "Unordered map" << endl;
+    for (auto i = unOrdered.begin(); i != unOrdered.end(); i++){
+        cout << i->first << " : " << i->second << endl;
+    }
+}
+
+// Word and Character Frequency counter
+void wordCharFrequencyCounter(string sentence){
+    unordered_map<string, int> wordFreq;
+    unordered_map<char, int> charFreq;
+
+    stringstream ss(sentence);
+    string word;
+    char character;
+
+    while (ss >> word){
+        wordFreq[word]++;
+
+        stringstream ss1(word);
+        while (ss1 >> character){
+            charFreq[character]++;
+        }
+    }
+
+    if(!wordFreq.empty()){
+        cout << "Word Frequency - " << endl;
+        for (auto it = wordFreq.begin(); it != wordFreq.end(); it++){
+            cout << it->first << " : " << it->second << endl;
+        }
+
+        cout << endl;
+        cout << "Character Frequency - " << endl;
+        for (auto it = charFreq.begin(); it != charFreq.end(); it++){
+            cout << it->first << " : " << it->second << endl;
+        }
+    }
+    else {
+        cout << "Map is empty" << endl;
+    }
+}
+
+// Is Parentheses Balanced
+bool isBalanced(string s) {
+    std::stack<char> st;
+
+    for (char c : s){
+        if (c == '(' || c == '{' || c == '['){
+            st.push(c);
+        }
+        else{
+            if (st.empty()){
+                return false;
+            }
+
+            char top = st.top();
+            st.pop();
+
+            if ((c == '}' && top != '{') || (c == ')' && top != '(') || (c == ']' && top != '[')){
+                return false;
+            }
         }
     }
 
@@ -394,13 +519,13 @@ int main() {
     // LeetCode Problem 1
     // vector<int> arr = {1, 1, 2, 3, 4, 4, 5, 5, 5, 5, 6};
     // int k = removeDuplicates(arr);
-    // std::cout<<"k: "<<k;
+    // cout<<"k: "<<k;
 
     // Struct vs Class
     // practice p;
     // practice1 p1;
-    // std::cout << 10*p.practiceVal << std::endl;  // 100
-    // std::cout << 10*p1.practiceVal1 << std::endl;  // member "practice1::practiceVal1" (declared at line 203) is inaccessible
+    // cout << 10*p.practiceVal << endl;  // 100
+    // cout << 10*p1.practiceVal1 << endl;  // member "practice1::practiceVal1" (declared at line 203) is inaccessible
 
     // Constructor Vs Destructor & Use of 'this' pointer in getData function
     // practice1 p1, p2("Hello"), p3(195, "Henry");
@@ -416,13 +541,13 @@ int main() {
     // accessSpecifiers aS;
     // aS.setData();
     // aS.showData();
-    // // std::cout << "Data 'a': " << aS.a << std::endl;  // member "accessSpecifiers::a" (declared at line 265) is inaccessible
-    // // std::cout << "Data 'b': " << aS.b << std::endl;  // member "accessSpecifiers::b" (declared at line 268) is inaccessible
-    // std::cout << "Data 'c': " << aS.c << std::endl;
+    // // cout << "Data 'a': " << aS.a << endl;  // member "accessSpecifiers::a" (declared at line 265) is inaccessible
+    // // cout << "Data 'b': " << aS.b << endl;  // member "accessSpecifiers::b" (declared at line 268) is inaccessible
+    // cout << "Data 'c': " << aS.c << endl;
     // // aS.a = 100;  // member "accessSpecifiers::a" (declared at line 265) is inaccessible
     // // aS.b = 256;  // member "accessSpecifiers::b" (declared at line 268) is inaccessible
     // aS.c = 624;
-    // std::cout << "New 'c': " << aS.c << std::endl;
+    // cout << "New 'c': " << aS.c << endl;
     // childAccessSpecifiers cAS;
 
     // Program 3: BankAccount
@@ -431,8 +556,51 @@ int main() {
     // account.deposit(110);
     // account.withDraw(15000);
     // account.withDraw(1000);
-    // std::cout << "Current balance: " << account.getBalance() << std::endl;
-    // std::cout << "Total Accounts: " << BankAccount::getAccounts() << std::endl;
+    // cout << "Current balance: " << account.getBalance() << endl;
+    // cout << "Total Accounts: " << BankAccount::getAccounts() << endl;
+
+    // Valid Parentheses - LeetCode Problem 2
+    // bool valid = isValid("{](");
+    // cout << "Is '{](' valid? " << ((valid)? "True" : "False") << endl;
+
+    // Illustrating Pure Virtual Function
+    // Shape* ptr;
+    // Circle c;
+    // ptr = &c;
+    // ptr->draw();
+
+    // Illustrating Pure Virtual Function & Virtual Destructor using smart pointers
+    // vector<unique_ptr<Shape>> shapes;
+    // shapes.push_back(make_unique<Circle>());
+    // shapes.push_back(make_unique<Triangle>());
+    // for(const auto& s : shapes){
+    //     s->draw();
+    // }
+
+    // Ordered Vs Unordered map
+    // orderedVsUnorderedMap();
+
+    // Tuple And Pair
+    // tuple<int, string, char> t1 = make_tuple(5, "Hi", 'c');
+    // pair<int, string> p1 = make_pair(14, "Hello");
+    // cout << "First element of Tuple: " << get<0>(t1) << endl;
+    // cout << p1.first << " : " << p1.second << endl;
+
+    // Iterators
+    // vector<int> v1 = {10, 40, 25, 82, 33, 91};
+    // for (vector<int>::iterator it = v1.begin(); it != v1.end(); it++){
+    //     cout << *it << " ";
+    // }
+    // cout << endl;
+    // for (vector<int>::reverse_iterator it = v1.rbegin(); it != v1.rend(); it++){
+    //     cout << *it << " ";
+    // }
+
+    // Word and Character Frequency Counter
+    // wordCharFrequencyCounter("This is very awesome and this is very nice and pretty.");
+
+    // Balanced Parentheses Using Stack
+    // cout << (isBalanced("([{}])")? "True" : "False") << endl;
 
     return 0;
 }
