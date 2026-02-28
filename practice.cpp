@@ -6,6 +6,8 @@
 #include <map>
 #include <stack>
 #include <sstream>
+#include <algorithm>
+#include <numeric>
 using namespace std;
 
 // Pass by Reference using pointers
@@ -498,6 +500,146 @@ bool isBalanced(string s) {
     return st.empty();
 }
 
+// sort(), find(), count(), accumulate(), min_element(), max_element(), upper_bound() and lower_bound()
+void vectorFunctions(vector<int>& v1){
+    // Before sorting
+    cout << "Before sorting: ";
+    for (vector<int>::iterator it = v1.begin(); it != v1.end(); it++){
+        cout << *it << " ";
+    }
+
+    sort(v1.begin(), v1.end());
+
+    // After sorting
+    cout << endl << "After sorting: ";
+    for (vector<int>::iterator it = v1.begin(); it != v1.end(); it++){
+        cout << *it << " ";
+    }
+    
+    int targetVal = 31;
+    cout << endl << "Is " << targetVal << " found? " << ((find(v1.begin(), v1.end(), targetVal) != v1.end())? "True" : "False") << endl;
+
+    int targetFreq = 62;
+    cout << "Frequency of " << targetFreq << ": " << count(v1.begin(), v1.end(), 62) << endl;
+
+    cout << "Sum: " << accumulate(v1.begin(), v1.end(), 0) << endl;
+
+    cout << "Minimum value in vector: " << *min_element(v1.begin(), v1.end()) << endl;
+
+    cout << "Maximum value in vector: " << *max_element(v1.begin(), v1.end()) << endl;
+
+    cout << "Upper bound of " << targetVal << " in vector: " << *upper_bound(v1.begin(), v1.end(), targetVal) << endl;
+    cout << "Lower bound of " << targetVal << " in vector: " << *lower_bound(v1.begin(), v1.end(), targetVal) << endl;
+}
+
+// Lambda Capture Clause
+void lambdaCaptureClause(vector<int> v1, vector<int> v2) {
+    // Capture values by Value
+    auto lambda = [v1]() {
+        cout << "v1: ";
+        for (int num : v1){
+            cout << (num += 1) << " ";
+        }
+        cout << endl;
+    };
+
+    lambda();
+
+    // Capture values by Reference
+    auto lambda1 = [&v2](){
+        for (int& num : v2){
+            num += 1;
+        }
+    };
+
+    lambda1();
+
+    // Capture values by Reference and Value
+    auto lambda2 = [&v1, v2](){
+        for (int& num : v1){
+            num *= 2;
+        }
+
+        cout << "v2: ";
+        for (int num : v2){
+            cout << (num += 2) << " ";
+        }
+        cout << endl;
+    };
+
+    lambda2();
+
+    cout << "v1: ";
+    for (vector<int>::iterator it = v1.begin(); it != v1.end(); it++){
+        cout << *it << " ";
+    }
+
+    cout << endl;
+
+    cout << "v2: ";
+    for (vector<int>::iterator it = v2.begin(); it != v2.end(); it++){
+        cout << *it << " ";
+    }
+}
+
+// Function Template
+template <typename T> T maxValue(T x, T y){
+    return x > y ? x : y;
+}
+
+// Class Template
+template <typename T> class Geek{
+    public:
+    T x;
+    T y;
+
+    // Constructor
+    Geek(T val1, T val2) : x(val1), y(val2){}
+
+    // Method to get the values
+    void getValues(){
+        cout << x << " " << y << endl;
+    }
+};
+
+// Template Variable
+template <typename T> constexpr T pi = T(3.14);
+
+
+// Student class
+class Student {
+    public:
+    string name;
+    double grade;
+
+    Student(string val1, double val2) : name(val1), grade(val2){}
+};
+
+// Sort a vector of custom objects (students by grade) using lambda
+void sortStudentsByGrade(vector<Student>& students){
+
+    sort(students.begin(), students.end(), [](const Student& a, const Student& b){
+        return a.grade > b.grade;
+    });
+
+    for (auto& s : students){
+        cout << s.name << ": " << s.grade << endl;
+    }
+}
+
+// Find Max Value Function Template
+template <typename T> T findMax(T x, T y) {
+    return x > y ? x : y;
+}
+
+// Use accumulate with a lambda to compute product of all elements
+void productOfAllElements(vector<int>& v1){
+
+    cout << accumulate(v1.begin(), v1.end(), 1, [](int a, int b){
+        return a * b;
+    }) << endl;
+}
+
 
 int main() {
 
@@ -601,6 +743,48 @@ int main() {
 
     // Balanced Parentheses Using Stack
     // cout << (isBalanced("([{}])")? "True" : "False") << endl;
+
+    // Vector Functions
+    // vector<int> v1 = {53, 62, 31, 12, 92, 66, 27, 62, 62};
+    // vectorFunctions(v1);
+
+    // Lambda Capture Clause
+    // vector<int> v1 = {10, 30, 20, 40, 50};
+    // vector<int> v2 = {50, 60, 30, 10, 90, 40, 20};
+    // lambdaCaptureClause(v1, v2);
+
+    // Use of function template
+    // cout << maxValue<int>(7, 5) << endl;
+    // cout << maxValue<char>('g', 't') << endl;
+    // cout << maxValue<double>(9.8, 2.2) << endl;
+
+    // Use of class template
+    // Geek<string> geek("Hi", "Hello");
+    // geek.getValues();
+
+    // Use of template variable
+    // cout << "Pi as float: " << pi<float> << endl;
+    // cout << "Pi as int: " << pi<int> << endl;
+
+    // Sort students by grade
+    // vector<Student> students = {
+    //     Student("Anand", 78.0),
+    //     Student("Akash", 85.8),
+    //     Student("Aditya", 66.9),
+    //     Student("Bharat", 91.0),
+    //     Student("Akash", 83.6),
+    //     Student("Anirudh", 72.8),
+    // };
+    // sortStudentsByGrade(students);
+
+    // Find Max Value using Function template
+    // cout << findMax<int>(9, 2) << endl;
+    // cout << findMax<float>(2.3, 2.9) << endl;
+    // cout << findMax<string>("Hi", "Hello") << endl;
+
+    // Product of all elements using accumulate with lambda
+    // vector<int> v1 = {2, 3, 4, 5};
+    // productOfAllElements(v1);
 
     return 0;
 }
