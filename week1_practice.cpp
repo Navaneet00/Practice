@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <stack>
 #include <memory>
@@ -200,6 +201,23 @@ int removeDuplicates(vector<int>& arr){
     return k;
 }
 
+// LeetCode Problem: Remove Element
+void removeElement(vector<int>& nums, int val) {
+    int k = 0;
+    for(int num : nums){
+        if(num != val){
+            nums[k] = num;
+            k++;
+        }
+    }
+
+    cout << "k: " << k << endl;
+    for(int num : nums){
+        cout << num << " ";
+    }
+    cout << endl;
+}
+
 // Struct: By Default the members of Struct are public
 struct practice{
     int practiceVal = 10;
@@ -357,7 +375,7 @@ class BankAccount {
 
 int BankAccount::totalAccounts = 0;
 
-// Is Parentheses valid function
+// LeetCode Problem: Is Parentheses valid function
 bool isValid(string s) {
     unordered_map<char, char> mp = {
         {')', '('},
@@ -378,6 +396,45 @@ bool isValid(string s) {
     }
 
     return st.empty();
+}
+
+// ListNode struct
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+
+// LeetCode Problem: Merge Two Sorted Lists
+ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+    if(!list1) return list2;
+    if(!list2) return list1;
+
+    ListNode dummy(0);
+    ListNode* mergedList = &dummy;
+
+    while (list1 && list2){
+        if(list1->val < list2->val){
+            mergedList->next = list1;
+            list1 = list1->next;
+        }
+        else{
+            mergedList->next = list2;
+            list2 = list2->next;
+        }
+        mergedList = mergedList->next;
+    }
+
+    if(list1){
+        mergedList->next = list1;
+    }
+    else{
+        mergedList->next = list2;
+    }
+
+    return dummy.next;
 }
 
 // Pure Virtual Function Example
@@ -411,6 +468,23 @@ class Triangle : public Shape {
         cout << "Triangle Destructor" << endl;
     }
 };
+
+// LeetCode Problem: Reverse Linked List
+ListNode* reverseList(ListNode* head) {
+    if(!head) return nullptr;
+
+    ListNode* curr = head;
+    ListNode* prev = nullptr;
+
+    while(curr){
+        ListNode* temp = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = temp;
+    }
+
+    return prev;
+}
 
 // Ordered Vs Unordered Map
 void orderedVsUnorderedMap(){
@@ -640,6 +714,131 @@ void productOfAllElements(vector<int>& v1){
     }) << endl;
 }
 
+// Create Node struct for LinkedList
+struct Node {
+    int data;
+    shared_ptr<Node> next;
+
+    Node(int val1) : data(val1), next(NULL){}
+};
+
+// Create LinkedList
+struct LinkedList {
+    LinkedList() : head(NULL) {}
+
+    // Insert function
+    void insert(int val){
+        shared_ptr<Node> newNode = make_shared<Node>(val);
+
+        if(!head){
+            head = newNode;
+        }
+        else{
+            shared_ptr<Node> current = head;
+            while (current->next){
+                current = current->next;
+            }
+            current->next = newNode;
+        }
+    }
+
+    // Delete function
+    void del(int val){
+        if(!head){
+            return;
+        }
+
+        if(head->data == val){
+            head = head->next;
+            return;
+        }
+        shared_ptr<Node> current = head;
+        while (current->next && current->next->data != val) {
+            current = current->next;
+        }
+        if (current->next && current->next->data == val) {
+            current->next = current->next->next;
+        }
+    }
+
+    // Traverse and print the linked list
+    void print() {
+        shared_ptr<Node> current = head;
+
+        while(current){
+            cout << current->data << " -> ";
+            current = current->next;
+        }
+        cout << "NULL" << endl;
+    }
+
+    private:
+    shared_ptr<Node> head;
+};
+
+class B;
+
+class A{
+    public:
+    shared_ptr<B> ptrB;
+    A(){
+        cout << "A created" << endl;
+    }
+    ~A(){
+        cout << "A destroyed" << endl;
+    }
+};
+
+class B{
+    public:
+    weak_ptr<A> ptrA;
+    B(){
+        cout << "B created" << endl;
+    }
+    ~B(){
+        cout << "B destroyed" << endl;
+    }
+};
+
+// Circular reference using shared_ptr
+void circularReference(){
+    shared_ptr<A> a = make_shared<A>();
+    shared_ptr<B> b = make_shared<B>();
+
+    a->ptrB = b;
+    b->ptrA = a;
+}
+
+// RAII - Resource Acquistion Is Initialization
+class FileHandler{
+    private:
+    ofstream file;
+
+    public:
+
+    // Constructor
+    FileHandler(const string& filename){
+        file.open(filename);
+        if(!file){
+            throw runtime_error("Failed to open file!");
+        }
+        cout << "File opened!" << endl;
+    }
+
+    // Write file function
+    void writeFile(const string& data){
+        file << data << endl;
+    }
+
+    // Destructor
+    ~FileHandler(){
+        if(file.is_open()){
+            file.close();
+            cout << "File closed!" << endl;
+        }
+    }
+};
+
 
 int main() {
 
@@ -658,10 +857,15 @@ int main() {
     // Program 2
     // program2();
 
-    // LeetCode Problem 1
+    // Remove Duplicates - LeetCode Problem 1
     // vector<int> arr = {1, 1, 2, 3, 4, 4, 5, 5, 5, 5, 6};
     // int k = removeDuplicates(arr);
     // cout<<"k: "<<k;
+
+    // Remove Element - LeetCode Problem 2
+    // vector<int> nums = {0,1,2,2,3,0,4,2};
+    // int val = 2;
+    // removeElement(nums, val);
 
     // Struct vs Class
     // practice p;
@@ -701,9 +905,23 @@ int main() {
     // cout << "Current balance: " << account.getBalance() << endl;
     // cout << "Total Accounts: " << BankAccount::getAccounts() << endl;
 
-    // Valid Parentheses - LeetCode Problem 2
+    // Valid Parentheses - LeetCode Problem 3
     // bool valid = isValid("{](");
     // cout << "Is '{](' valid? " << ((valid)? "True" : "False") << endl;
+
+
+    // Merge Two Sorted Lists - LeetCode Problem 4
+    // ListNode* list1 = new ListNode(1);
+    // ListNode* list2 = new ListNode(3);
+    // list1->next = new ListNode(2);
+    // list2->next = new ListNode(5);
+    // ListNode* mergedList = mergeTwoLists(list1, list2);
+    // while(mergedList){
+    //     cout << mergedList->val << " -> ";
+    //     mergedList = mergedList->next;
+    // }
+    // cout << "NULL" << endl;
+
 
     // Illustrating Pure Virtual Function
     // Shape* ptr;
@@ -718,6 +936,21 @@ int main() {
     // for(const auto& s : shapes){
     //     s->draw();
     // }
+
+
+    // Reverse Linked List - LeetCode Problem 5
+    // ListNode* list = new ListNode(1);
+    // list->next = new ListNode(2);
+    // list->next->next = new ListNode(3);
+    // list->next->next->next = new ListNode(4);
+    // list->next->next->next->next = new ListNode(5);
+    // ListNode* head = reverseList(list);
+    // while(head){
+    //     cout << head->val << " -> ";
+    //     head = head->next;
+    // }
+    // cout << "NULL" << endl;
+
 
     // Ordered Vs Unordered map
     // orderedVsUnorderedMap();
@@ -785,6 +1018,22 @@ int main() {
     // Product of all elements using accumulate with lambda
     // vector<int> v1 = {2, 3, 4, 5};
     // productOfAllElements(v1);
+
+    // LinkedList
+    // LinkedList linkedList;
+    // linkedList.insert(2);
+    // linkedList.insert(7);
+    // linkedList.insert(9);
+    // linkedList.print();
+    // linkedList.del(2);
+    // linkedList.print();
+
+    // Circular Reference
+    // circularReference();
+
+    // RAII
+    // FileHandler fileHandler("TextFile.txt");
+    // fileHandler.writeFile("I am Navaneet and I am a coder!");
 
     return 0;
 }
