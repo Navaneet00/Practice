@@ -69,6 +69,12 @@ void increment(){
     mtx.unlock();
 }
 
+// Get Thread Id with a message
+void getId(int num){
+    lock_guard<mutex> lock(mtx);
+    cout << "Thread " << num << " is running!" << endl;
+}
+
 int main() {
 
     // // Create new thread
@@ -108,12 +114,28 @@ int main() {
     // cout << "Number after execution of t1 and t2 is " << number << endl;
 
 
+
     // Use of Condition Variable
     // thread consumer_thread(consumer);
     // thread producer_thread(producer);
 
     // consumer_thread.join();
     // producer_thread.join();
+
+    
+
+    // // Create 5 Threads → Observe Race Condition & Fix Using mutex
+    // thread t1(getId, 1);
+    // thread t2(getId, 2);
+    // thread t3(getId, 3);
+    // thread t4(getId, 4);
+    // thread t5(getId, 5);
+
+    // t1.join();
+    // t2.join();
+    // t3.join();
+    // t4.join();
+    // t5.join();
 
     cout << "Main thread awake and finished!";
     return 0;

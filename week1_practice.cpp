@@ -9,6 +9,7 @@
 #include <sstream>
 #include <algorithm>
 #include <numeric>
+#include <queue>
 using namespace std;
 
 // Pass by Reference using pointers
@@ -1034,6 +1035,14 @@ int main() {
     // RAII
     // FileHandler fileHandler("TextFile.txt");
     // fileHandler.writeFile("I am Navaneet and I am a coder!");
+
+    // Priority Queue
+    // priority_queue<int> maxpq;
+    // maxpq.push(3); maxpq.push(4); maxpq.push(2); maxpq.push(1);
+    // cout << "Top: " << maxpq.top() << endl;
+    // priority_queue<int, vector<int>, greater<int>> minpq;
+    // minpq.push(3); minpq.push(4); minpq.push(2); minpq.push(1);
+    // cout << "Top: " << minpq.top() << endl;
 
     return 0;
 }
