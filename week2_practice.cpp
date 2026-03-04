@@ -208,6 +208,51 @@ void safeTask(){
     cout << "Tasks executed safely\n";
 }
 
+// Move Constructor Demo
+class Practice {
+    private:
+    int* ptr;
+
+    public:
+
+    // Constructor
+    Practice(int value){
+
+        // Dynamically allocate memory
+        ptr = new int(value);
+        cout << "Constructor called!" << endl;
+    }
+
+    // Noexcept Move Constructor 
+    Practice(Practice&& obj) noexcept {
+        cout << "Move constructor called!" << endl;
+
+        // Steal the pointer
+        ptr = obj.ptr;
+        obj.ptr = nullptr;
+    }
+
+    ~Practice(){
+        if(ptr != nullptr){
+            cout << "Destructor deleting data: " << *ptr << endl;
+        }
+        else{
+            cout << "Destructor called on nullptr" << endl;
+        }
+        delete ptr;
+    }
+
+    // Display function
+    void display(){
+        if(ptr){
+            cout << "Pointer value: " << *ptr << endl;
+        }
+        else{
+            cout << "No value" << endl;
+        }
+    }
+};
+
 
 
 int main() {
@@ -317,6 +362,28 @@ int main() {
     // thread t2(safeTask);
     // t1.join();
     // t2.join();
+
+
+    // Move constructor demo
+    // Practice p(40);
+    // Practice p1 = move(p);
+    // cout << "display p: ";
+    // p.display();
+    // cout << "display p1: ";
+    // p1.display();
+
+
+    // // Move Assignment Operator
+    // vector<int> a = {1, 2, 3, 4};
+    // vector<int> b;
+    // cout << "Before moving" << endl;
+    // cout << "Size of a: " << a.size() << endl;
+    // cout << "Size of b: " << b.size() << endl;
+    // b = move(a);  // Move assignment
+    // cout << "After moving" << endl;
+    // cout << "Size of a: " << a.size() << endl;
+    // cout << "Size of b: " << b.size() << endl;
+
 
     cout << "Main thread awake and finished!" << endl;
     return 0;
