@@ -254,6 +254,112 @@ class Practice {
 };
 
 
+// Resource Manager for Execution of Rule of Five
+class ResourceManager{
+    private:
+    int* data;
+    size_t size;
+
+    public:
+
+    // Default Constructor
+    ResourceManager(size_t sz=0) : data(new int[sz]), size(sz){
+        cout << "Default Constructor called!" << endl;
+    }
+
+    // Destructor
+    ~ResourceManager(){
+        delete[] data;
+        cout << "Destructor called!" << endl;
+    }
+
+    // Copy Constructor
+    ResourceManager(const ResourceManager& other) : data(new int[other.size]), size(other.size){
+        copy(other.data, other.data + other.size, data);
+        cout << "Copy Constructor Called!" << endl;
+    }
+
+    // Copy Assignment Operator
+    ResourceManager& operator=(const ResourceManager& other){
+        if(this != &other){
+            delete[] data;
+            data = new int[other.size];
+            size = other.size;
+            copy(other.data, other.data + other.size, data);
+        }
+        cout << "Copy Assignment Operator Is Called!" << endl;
+        return *this;
+    }
+
+    // Move Constructor
+    ResourceManager(ResourceManager&& other) noexcept : data(other.data), size(other.size){
+        other.data = nullptr;
+        other.size = 0;
+        cout << "Move Constructor Called!" << endl;
+    }
+
+    // Move Assignment Operator
+    ResourceManager& operator=(ResourceManager&& other){
+        if(this != &other){
+            delete[] data;
+            data = other.data;
+            size = other.size;
+            other.data = nullptr;
+            other.size = 0;
+        }
+        cout << "Move Assignment Operator Is Called!" << endl;
+        return *this;
+    }
+};
+
+
+// Shared Counter Using atomic<int> (No Mutex)
+atomic<int> counter(0);
+
+void increment1(){
+    for(int i = 0; i < 100000; i++){
+        counter++;
+    }
+}
+
+
+// Benchmark: Mutex vs Atomic (1 Million Increments)
+const int numThreads = 10;
+const int increments = 1000000;
+
+// --- Mutex Part ---
+mutex mtxMillion;
+int mtxCounter = 0;
+
+void incrementMillion(){
+    for (int i = 0; i < increments; i++){
+        lock_guard<mutex> lock(mtxMillion);
+        mtxCounter++;
+    }
+}
+
+// --- Atomic Part ---
+atomic<int> atomicCounter(0);
+
+void incrementMillion1(){
+    for (int i = 0; i < increments; i++){
+        atomicCounter++;
+    }
+}
+
+
+// Lock-free flag using atomic<bool>
+atomic<bool> ready(false);
+
+void worker(){
+    if(!ready.load()){
+        // spin-wait
+    }
+
+    cout << "Worker proceeding after signal!" << endl;
+}
+
+
 
 int main() {
 
@@ -383,6 +489,99 @@ int main() {
     // cout << "After moving" << endl;
     // cout << "Size of a: " << a.size() << endl;
     // cout << "Size of b: " << b.size() << endl;
+
+
+    // // ResourceManager - Execution of Rule of Five
+    // ResourceManager r1(10);
+    // ResourceManager r2 = r1;
+    // ResourceManager r3;
+    // r3 = r1;
+    // ResourceManager r4 = move(r1);
+    // ResourceManager r5;
+    // r5 = move(r1);
+
+
+    // Shared Counter Using atomic<int> (No Mutex)
+    // cout << "Counter value before incrementing: " << counter << endl;
+    // vector<thread> threads;
+    // for(int i = 0; i < 5; i++){
+    //     threads.emplace_back(increment1);
+    // }
+    // for(thread& t : threads){
+    //     t.join();
+    // }
+    // cout << "Counter value after incrementing: " << counter << endl;
+
+
+    // // Benchmark: Mutex vs Atomic (1 Million Increments)
+    // {
+    //     // --- Mutex Benchmark ---
+
+    //     auto start = chrono::high_resolution_clock::now();
+
+    //     vector<thread> threads;
+    //     mtxCounter = 0;
+
+    //     for (int i = 0; i < numThreads; i++){
+    //         threads.emplace_back(incrementMillion);
+    //     }
+
+    //     for (thread& t : threads){
+    //         t.join();
+    //     }
+    
+    //     auto end = chrono::high_resolution_clock::now();
+
+    //     cout << "Mutex counter value: " << mtxCounter << endl;
+    //     cout << "Mutex Time: " << chrono::duration_cast<chrono::milliseconds>(end-start).count() << " ms." << endl;
+    // }
+
+    // {
+    //     // --- Atomic Benchmark ---
+    //     atomicCounter = 0;
+
+    //     auto start = chrono::high_resolution_clock::now();
+
+    //     vector<thread> threads;
+
+    //     for (int i = 0; i < numThreads; i++){
+    //         threads.emplace_back(incrementMillion1);
+    //     }
+
+    //     for (thread& t : threads){
+    //         t.join();
+    //     }
+
+    //     auto end = chrono::high_resolution_clock::now();
+
+    //     cout << "Atomic counter value: " << atomicCounter << endl;
+    //     cout << "Atomic Time: " << chrono::duration_cast<chrono::milliseconds>(end-start).count() << " ms." << endl;
+    // }
+
+
+    // Lock-Free Flag using atomic<bool>
+    // thread t(worker);
+    // this_thread::sleep_for(chrono::seconds(10));
+    // ready.store(true);   // signal
+    // t.join();
+
+
+    // {
+    //     // Measure Performance: Copy vs Move Vector
+    //     vector<int> big = {50'000'000, 4, 82};
+
+    //     auto start1 = chrono::high_resolution_clock::now();
+    //     vector<int> otherBig = big;
+    //     auto end1 = chrono::high_resolution_clock::now();
+
+    //     cout << "Time taken for 'copy': " << chrono::duration_cast<chrono::microseconds>(end1-start1).count() << " ms." << endl;
+
+    //     auto start2 = chrono::high_resolution_clock::now();
+    //     vector<int> anotherBig = move(big);
+    //     auto end2 = chrono::high_resolution_clock::now();
+
+    //     cout << "Time taken for 'move': " << chrono::duration_cast<chrono::microseconds>(end2-start2).count() << " ms." << endl;
+    // }
 
 
     cout << "Main thread awake and finished!" << endl;
