@@ -1,0 +1,26 @@
+# Compiled binaries (Windows)
+*.exe
+
+# Compiled binaries (Linux/Mac)
+false_sharing
+branchy_vs_branchless
+lockfree_stack
+producer_consumer_pattern
+student_record_system
+week1_practice
+week2_practice
+Aos_vs_SoA
+
+# Build directories
+build/
+cmake-build-*/
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Scratch files
+TextFile.txt
