@@ -1,11 +1,7 @@
 # C++ Low-Latency Practice
 
 Focused exercises in systems programming, lock-free concurrency, and 
-cache-optimized data structures — written as preparation for HFT 
-software engineering roles.
-
-Each file is self-contained with inline comments explaining the 
-"why" behind every technique, not just the "what".
+cache-optimized data structures.
 
 ---
 
