@@ -52,3 +52,8 @@ int main(){
 
     return 0;
 }
+
+
+// Result:
+// Branchy version: 1073 ms. And Sum is: 2511950751
+// Branchless version: 572 ms. And Sum is: 2511950751
