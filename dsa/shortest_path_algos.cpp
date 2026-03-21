@@ -104,3 +104,45 @@ int main(){
 
     return 0;
 }
+
+
+// Network Delay Problem - LeetCode
+class Solution {
+public:
+    int networkDelayTime(vector<vector<int>>& times, int n, int k) {
+        vector<vector<Edge>> l(n + 1);
+
+        for(vector<int>& edge : times){
+            l[edge[0]].push_back(Edge(edge[1], edge[2]));
+        }
+
+        vector<int> dist(n+1, INT_MAX);
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+        dist[k] = 0;
+
+        pq.push({0, k});
+
+        while(!pq.empty()){
+            int curr = pq.top().second;
+            int currDist = pq.top().first;
+            pq.pop();
+
+            if(currDist > dist[curr]) continue;
+
+            for(Edge& e : l[curr]){
+                if(dist[e.v] > dist[curr] + e.wt){
+                    dist[e.v] = dist[curr] + e.wt;
+                    pq.push({dist[e.v], e.v});
+                }
+            }
+        }
+
+        int ans = 0;
+        for(int i = 1; i <= n; i++){
+            if(dist[i] == INT_MAX) return -1;
+            ans = max(ans, dist[i]);
+        }
+
+        return ans;
+    }
+};
